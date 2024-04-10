@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lesson 14</title>
+  </head>
+  <body>
+    <h1>Задача 1</h1>
+    <p>
+      Описати масив об’єктів – сайтів розроблених компанією з такими
+      властивостями ----- Властивості ------ назва компанії на час розробки
+      (назву періодично змінюють) власник компанії споснсори (масив спонсорів) *
+      прізвище спонсора * ім’я спонсора * сума вкладень спонсора рік випуску
+      вартість сайту
+    </p>
+    <script>
+      let sitesDevelopedCompany = [
+        {
+          name: "Karcher",
+          owner: "John",
+          sponsors: [
+            {
+              lastName: "Kowalski",
+              firstName: "Jan",
+              amountOfInvestments: "5000",
+            },
+            {
+              lastName: "Piechowiak",
+              firstName: "Mati",
+              amountOfInvestments: "15000",
+            },
+          ],
+          graduationYear: 2002,
+          costsSite: 2000,
+        },
+        {
+          name: "Orange",
+          owner: "Marko",
+          sponsors: [
+            {
+              lastName: "Kosoi",
+              firstName: "Ivan",
+              amountOfInvestments: "2000",
+            },
+            {
+              lastName: "Nawrocki",
+              firstName: "Mateusz",
+              amountOfInvestments: "25000",
+            },
+          ],
+          graduationYear: 2000,
+          costsSite: 10000,
+        },
+      ]
+      //загальну вартість усіх сайтів
+      let totalCost = sitesDevelopedCompany.reduce(
+        (PrevSum, Object) => PrevSum + Object.costsSite,
+        0
+      )
+      document.write(`Сума сайтів;${totalCost}`)
+      //кількість сайтів, що було зроблено між 2000 та 2009 рр.
+      let intervalsSites = sitesDevelopedCompany.reduce(
+        (prevNumber, Object) =>
+          Object.graduationYear > 2000 && Object.graduationYear < 2009
+            ? prevNumber + 1
+            : prevNumber,
+        0
+      )
+      document.write(
+        `кількість сайтів, що було зроблено між 2000 та 2009 р;${intervalsSites}`
+      )
+      //кількість сайтів, де сума спонсорських вкладень була більшою за 100000
+      let costsSponsorMoney = sitesDevelopedCompany.reduce(
+        (prevSum, Object) =>
+          Object.amountOfInvestments > 1000000 ? prevSum + 1 : prevSum,
+        0
+      )
+      document.write(
+        `кількість сайтів, де сума спонсорських вкладень була більшою за 100000;${costsSponsorMoney}`
+      )
+      //створити загальний список усіх спонсорів (поки можуть повторюватись, просто зібрати усі у масив)
+      let listSponsors = []
+      for (let sites of sitesDevelopedCompany) {
+        for (sponsor of sites.sponsors) {
+          listSponsors.push(`<br>${sponsor.lastName} ${sponsor.firstName}<br>`)
+        }
+      }
+      document.write(`створити загальний список усіх спонсорів${listSponsors}`)
+      //знайти рік, коли прибуток був найбільшим
+      let maxYear = 0
+      let maxWebsiteCost = -Infinity
+      for (const site of sitesDevelopedCompany) {
+        if (site.costsSite > maxWebsiteCost) {
+          maxWebsiteCost = site.costsSite
+          maxYear = site.graduationYear
+        }
+      }
+
+      document.write(` рік, коли прибуток був найбільшим ${maxYear}`)
+      //упорядкувати список за спаданням прибутку
+      let squeakForTheLostProfit = sitesDevelopedCompany.sort(
+        (a, b) => b.costsSite - a.costsSite
+      )
+      //document.write(`список за спаданням прибутку${squeakForTheLostProfit}`)
+      console.log(squeakForTheLostProfit)
+    </script>
+  </body>
+</html>

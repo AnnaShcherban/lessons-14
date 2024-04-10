@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lesson 14</title>
+  </head>
+  <body>
+    <h1>задача 2</h1>
+    <p>
+      Розробити функцію, у яку передають об’єкт (день, місяць, рік). Визначити,
+      який буде рік через N місяців.
+    </p>
+    <script>
+      function transferOfObject({ month, year }, nowMonth) {
+        let newMonth = month + nowMonth
+        let newYear = year + Math.floor(newMonth - 1 / 12)
+        return newYear
+      }
+      let years = transferOfObject({ day: 10, month: 4, year: 2024 }, 15)
+      document.write(`${years} year`)
+    </script>
+  </body>
+</html>
